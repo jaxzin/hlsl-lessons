@@ -6,7 +6,7 @@ This example contains a basic set of files to create a simple emissive material 
 
 *   `Emission.shader`: This is the heart of the effect. It's a ShaderLab/HLSL file that tells the GPU how to draw an object to make it look like it's glowing. It defines the properties that can be customized, like the emission color and intensity.
 *   `Emission.mat`: This is a Unity Material. It uses the `Emission.shader` and lets you save specific settings for it. For example, you could have one material for a red glow and another for a blue glow, both using the same shader file. You apply *this* file to your objects in the scene.
-*   `EmissionGUI.cs`: This is a C# script that creates a custom user interface (UI) for our shader in Unity's Inspector window. It makes it easier and more intuitive to change the material's properties (like the color and intensity).
+*   `EmissionGUI.cs`: This is a C# script that creates a custom user interface (UI) for our shader in Unity's Inspector window. It makes it easier and more intuitive to change the material's properties (like the color and intensity). This script is also essential for enabling realtime Global Illumination (GI) for the material, as this cannot be accomplished in pure ShaderLab/HLSL.
 
 ## Installation in Unity
 
