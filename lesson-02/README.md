@@ -59,3 +59,23 @@ The process is very similar to Lesson 1, but since we don't provide a pre-made M
     *   Make sure you have a Directional Light in your scene.
     *   Rotate the object or the light to see how the glow changes based on the surface angle.
     *   Adjust the `Emission Color` and `Intensity` on your material in the Inspector.
+
+## Homework
+
+Ready to take this shader to the next level? Here are a couple of challenges.
+
+### 1. Add Shadow Support
+
+Currently, our shader receives light but doesn't receive shadows. If you place an object between the light and your emissive surface, the surface will still be fully lit. 
+
+**Goal**: Make the object respect the main light's shadows.
+
+**Hint**: The `Light` struct provided by `GetMainLight()` contains a `shadowAttenuation` property. You'll need to sample it. This requires passing more data from the vertex shader to the fragment shader. Look at how URP's `Lit` shader is implemented for clues.
+
+### 2. Add Support for Multiple Lights
+
+Our shader only considers the main directional light. It completely ignores any other lights in the scene (Point Lights, Spot Lights, etc.).
+
+**Goal**: Modify the shader to include lighting and shadows from additional lights.
+
+**Hint**: You will need to loop through the additional lights. The `GetAdditionalLightsCount()` and `GetAdditionalLight()` functions will be essential here. You will need to accumulate the light contribution from each additional light.
