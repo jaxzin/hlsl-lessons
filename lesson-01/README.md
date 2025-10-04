@@ -5,24 +5,17 @@ This example contains a basic set of files to create a simple emissive material 
 ## File Descriptions
 
 *   `Emission.shader`: This is the heart of the effect. It's a ShaderLab/HLSL file that tells the GPU how to draw an object to make it look like it's glowing. It defines the properties that can be customized, like the emission color and intensity.
-*   `Emission.mat`: This is a Unity Material. It uses the `Emission.shader` and lets you save specific settings for it. For example, you could have one material for a red glow and another for a blue glow, both using the same shader file. You apply *this* file to your objects in the scene.
 *   `EmissionGUI.cs`: This is a C# script that creates a custom user interface (UI) for our shader in Unity's Inspector window. It makes it easier and more intuitive to change the material's properties (like the color and intensity). This script is also essential for enabling realtime Global Illumination (GI) for the material, as this cannot be accomplished in pure ShaderLab/HLSL.
 
-## Installation in Unity
+## Installation and Use
 
-1.  Open your Unity project.
-2.  In the `Project` window, navigate to the `Assets` folder.
-3.  Create a new folder to keep things organized (e.g., `HLSL Lessons/Lesson-01`).
-4.  Drag and drop the `Emission.shader`, `Emission.mat`, and `EmissionGUI.cs` files from your computer directly into this new folder in Unity.
-5.  Unity will automatically import the assets and compile the shader.
-
-## How to Use
-
-1.  Create a new 3D object in your scene (e.g., go to `GameObject > 3D Object > Sphere`).
-2.  In the `Project` window, find the `Emission` material (it has a sphere icon).
-3.  Drag the `Emission` material from the `Project` window and drop it onto your 3D object in the `Scene` view or in the `Hierarchy` window.
-4.  Your object will now use the emissive material.
-5.  To change the glow color or intensity, click on the `Emission.mat` file in the `Project` window and look at the `Inspector` window. You will see the custom controls created by the `EmissionGUI.cs` script.
+1.  **Import Files**: Drag `Emission.shader` and `EmissionGUI.cs` into your Unity project.
+2.  **Create a Material**:
+    *   In the Unity `Project` window, right-click on the `Emission.shader` file.
+    *   Go to **`Create > Material`**.
+    *   Unity will create a new material named "Emission" (or similar) that already uses this shader.
+3.  **Apply to an Object**: Create a new 3D object in your scene (e.g., `GameObject > 3D Object > Sphere`) and drag the newly created "Emission" material onto it.
+4.  **Adjust Settings**: Select the "Emission" material in the `Project` window. You can now change the `Emission Color` and `Intensity` in the `Inspector` window.
 
 ## Stretch Goal: Realtime Global Illumination
 

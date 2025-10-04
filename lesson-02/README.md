@@ -51,15 +51,11 @@ The process is very similar to Lesson 1, but since we don't provide a pre-made M
 
 1.  **Import Files**: Drag `EmissionShaded.shader` and `EmissionShadedGUI.cs` into your Unity project.
 2.  **Create a Material**:
-    *   In the Unity `Project` window, right-click in the folder where you put the shader.
+    *   In the Unity `Project` window, right-click on the `EmissionShaded.shader` file.
     *   Go to **`Create > Material`**.
-    *   Name the new material something like "EmissionShaded".
-3.  **Assign the Shader**:
-    *   Select your new "EmissionShaded" material.
-    *   In the `Inspector` window at the top, click the **`Shader`** dropdown.
-    *   Go to **`Custom > EmissionShaded`** to assign our new shader to the material.
-4.  **Apply to an Object**: Drag the "EmissionShaded" material onto a Sphere or other 3D object in your scene.
-5.  **Experiment**:
+    *   Unity will create a new material named "EmissionShaded" (or similar) that already uses this shader.
+3.  **Apply to an Object**: Drag the "EmissionShaded" material onto a Sphere or other 3D object in your scene.
+4.  **Experiment**:
     *   Make sure you have a Directional Light in your scene.
     *   Rotate the object or the light to see how the glow changes based on the surface angle.
     *   Adjust the `Emission Color` and `Intensity` on your material in the Inspector.
