@@ -165,6 +165,80 @@ Shader "Custom/FluorescentHDRP"
             ENDHLSL
         }
     }
+        // ---- Meta (Baked GI) ----
+        // Unity calls this pass when baking lighting. It renders the mesh "unfolded"
+        // into lightmap UV space so the lightmapper can sample albedo and emission
+        // per lightmap texel. LightMode=Meta is the same tag in both URP and HDRP.
+        Pass
+        {
+            Name "META"
+            Tags { "LightMode"="Meta" }
+            Cull Off
+
+            HLSLPROGRAM
+            #pragma vertex MetaVertex
+            #pragma fragment MetaFragment
+            #pragma shader_feature_local_fragment _EMISSION
+
+            #include "Packages/com.unity.render-pipelines.core/ShaderLibrary/Common.hlsl"
+            #include "Packages/com.unity.render-pipelines.high-definition/Runtime/ShaderLibrary/ShaderVariables.hlsl"
+
+            float4 _EmitColor;
+            float  _Intensity;
+
+            // Unity sets these to tell the Meta fragment what to output:
+            //   .x == 1  →  output albedo
+            //   .y == 1  →  output emission
+            // (may already be declared in ShaderVariables.hlsl; remove this
+            //  line if you get an "already defined" compile error)
+            float4 unity_MetaFragmentControl;
+
+            struct Attributes
+            {
+                float4 positionOS : POSITION;
+                float2 uv0        : TEXCOORD0;
+                float2 uv1        : TEXCOORD1; // lightmap UV channel
+                float3 normalOS   : NORMAL;
+            };
+
+            struct Varyings
+            {
+                float4 positionCS : SV_POSITION;
+                float3 normalWS   : TEXCOORD0;
+            };
+
+            Varyings MetaVertex(Attributes input)
+            {
+                Varyings output;
+                // Remap lightmap UVs to clip space so the lightmapper can
+                // "see" each texel of the mesh. HDRP has no helper for this
+                // (URP had UnityMetaVertexPosition); we do it manually.
+                float2 uv = input.uv1 * unity_LightmapST.xy + unity_LightmapST.zw;
+                output.positionCS = float4(uv * 2.0 - 1.0, 0, 1);
+                #if UNITY_UV_STARTS_AT_TOP
+                output.positionCS.y = -output.positionCS.y;
+                #endif
+                output.normalWS = TransformObjectToWorldNormal(input.normalOS);
+                return output;
+            }
+
+            half4 MetaFragment(Varyings input) : SV_Target
+            {
+                // If the lightmapper isn't asking for emission, output nothing.
+                if (!unity_MetaFragmentControl.y)
+                    return 0;
+
+                // We output full _EmitColor * _Intensity — the maximum this surface
+                // could ever emit. At bake time the lightmapper doesn't simulate
+                // dynamic light colors, so we can't evaluate the "is there any
+                // blue light?" condition. This gives baked GI a conservative upper
+                // bound; the runtime ForwardOnly pass modulates the result correctly.
+                return half4(_EmitColor.rgb * _Intensity, 1.0);
+            }
+            ENDHLSL
+        }
+
+    }
     FallBack "Diffuse"
     CustomEditor "FluorescentHDRPGUI"
 }
