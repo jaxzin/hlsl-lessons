@@ -47,7 +47,10 @@ public static class ShaderValidator
                 }
                 else
                 {
-                    Debug.LogWarning($"  WARNING in {path}: {msg.message} (platform: {msg.platform})");
+                    // Treat warnings in lesson shaders as errors — keeps the lesson
+                    // code clean and ensures Owen's shaders don't accumulate silent issues.
+                    Debug.LogError($"  WARNING (treated as error) in {path}: {msg.message} (platform: {msg.platform})");
+                    hasErrors = true;
                 }
             }
 
