@@ -164,7 +164,7 @@ Shader "Custom/FluorescentHDRP"
             }
             ENDHLSL
         }
-    }
+
         // ---- Meta (Baked GI) ----
         // Unity calls this pass when baking lighting. It renders the mesh "unfolded"
         // into lightmap UV space so the lightmapper can sample albedo and emission
