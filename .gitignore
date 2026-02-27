@@ -1,1 +1,12 @@
 .idea/
+
+# Unity
+Library/
+Temp/
+obj/
+Build/
+Builds/
+Logs/
+UserSettings/
+*.csproj
+*.sln
