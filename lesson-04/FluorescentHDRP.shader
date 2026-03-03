@@ -30,7 +30,6 @@ Shader "Custom/FluorescentHDRP"
 
             #include "Packages/com.unity.render-pipelines.core/ShaderLibrary/Common.hlsl"
             #include "Packages/com.unity.render-pipelines.high-definition/Runtime/ShaderLibrary/ShaderVariables.hlsl"
-            #include "Packages/com.unity.render-pipelines.high-definition/Runtime/Lighting/LightDefinition.hlsl"
 
             struct Attributes
             {
@@ -164,7 +163,7 @@ Shader "Custom/FluorescentHDRP"
             }
             ENDHLSL
         }
-    }
+
         // ---- Meta (Baked GI) ----
         // Unity calls this pass when baking lighting. It renders the mesh "unfolded"
         // into lightmap UV space so the lightmapper can sample albedo and emission
